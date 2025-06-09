@@ -1,0 +1,6 @@
+{
+  "name": "Ginga AI Chat Assistant",
+  "description": "A chat application that acts as a virtual assistant for Agência Ginga, providing information about its services, methodology, and cases using Google Gemini API.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
