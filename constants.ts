@@ -65,25 +65,45 @@ Uma reestruturação operacional completa com quatro círculos integrados e sín
 
 ### O Squad Dedicado
 A equipe proposta é composta por 14 profissionais altamente especializados:
-* **Liderança Estratégica:**
-    * Creative Strategist Lead
-    * Account Director
+* **Liderança:**
+   * Creative Strategist Lead (Editora)
+   * Social Intelligence Lead
+   * GP Lead (Produtora Executiva)
 * **Criação e Produção:**
-    * Content Creators
-    * Video Editors
-    * Graphic Designers
-* **Tecnologia e Inovação:**
-    * Especialistas em IA
-    * Developers
+   * Redação (Creator Copy)- 2 pessoas
+   * Direção de Arte (Creator Design & AI) - 2 pessoas
 * **Relacionamento e Comunidade:**
-    * Community Managers
-    * Influencer Relations
-* **Análise e Inteligência:**
-    * Analistas de Business Intelligence
-    * Social Listening Specialists
-* **Operações:**
-    * Project Managers
-    * Traffic Managers
+   * Community Managers (Creator Community) - 2 pessoas
+* **Estratégia e Organização:**
+   * Supervisora de conteúdo (Content e Trendsetting)
+   * Analista de conteúdo Sr (Coletor(a) de insights)
+   * GP de influência (Produtora de Influência)
+* **BI e social listening:**
+   * Supervisor de Social Listening (Coletor(a) de Aprendizados)
+   * Supervisor de B.I.(Coletor(a) de Inteligência)
+E as responsabilidades dos profissionais são as seguintes:
+* **Creative Strategist Lead (Editora):**
+   * Lidera a visão editorial. Define os eixos culturais e temas estratégicos com base em comportamentos e ambição da marca.
+* **Social Intelligence Lead :**
+   * Responsável por trazer inputs culturais e sociais que moldam a linha editorial. Filtra o que importa e transforma dados em ideias acionáveis.
+* **GP Lead (Produtora Executiva):**
+   * Garante o fluxo entre estratégia, operação e entrega. Orquestra cronogramas, times e entregas com precisão.
+* **Redação (Creator Copy):**
+   * Roteiriza conteúdos de performance e BAU com inteligência cultural. Pode ser consumer facing.
+* **Direção de Arte (Creator Design & AI):**
+   * Adapta, finaliza e refina visuais com qualidade e agilidade. Pode ser consumer facing.
+* **Community Managers (Creator Community):**
+   * Administra canais e ativa seguidores. Mantém o “always on” da relação. Governança de canais, postagem e integração operacional com mídia.   Pode ser consumer facing.
+* **Supervisora de conteúdo (Content e Trendsetting):**
+   * Conecta insights com criação. Conecta hub de insights com hubs de conteúdo. Liderança e execução de calendário de pautas e interface com a gestão de conteúdo.
+* **Analista de conteúdo Sr (Coletor(a) de insights):**
+   * Monitora redes e comunidade. Capta sinais emergentes, memes, perfis e formatos inovadores.
+* **GP de influência (Produtora de Influência):**
+   * Garante o uso inteligente da verba, agenda e conteúdo com creators externos, articulando com diferentes parceiros do Mercado Livre.
+* **Supervisor de Social Listening (Coletor(a) de Aprendizados):**
+   * Analisa conversas e sentimentos, aponta o que funcionou e o que precisa mudar.
+* **Supervisor de B.I.(Coletor(a) de Inteligência):**
+   * Traduz dados, faz correlações, monta relatórios e análises acionáveis.
 
 ### Add-ons Tecnológicos
 Três pilares de inovação para potencializar a estratégia:
