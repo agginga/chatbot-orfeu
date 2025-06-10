@@ -178,10 +178,10 @@ A GINGA oferece uma gama completa de serviços para impulsionar a presença e os
 export const GINGA_ORANGE = '#F9A01E';
 
 export const SUGGESTION_PROMPTS: string[] = [
-  "Quais os serviços que a GINGA oferece?",
-  "Como a GINGA pode ajudar minha marca?",
-  "Quais marcas a GINGA já atendeu?",
   "Explique em detalhes a estrutura operacional da proposta para o Mercado Livre Moda.",
   "Quais são os 5 códigos estratégicos e por que foram criados?",
   "Qual a importância da pesquisa com creators para a proposta?",
+  "Sintetize o Headcount e papeis dos profissionais da proposta de Mercado Livre Moda.",
+"Me ajude a sumarizar a proposta de Mercado Livre Moda?",
+"Quais são os principais pontos que você destacaria na proposta em contrapartida ao briefing?"
 ];
