@@ -8,38 +8,37 @@ import GingaLogoNew from "./icons/GingaLogoNew";
 import { SUGGESTION_PROMPTS } from "../constants";
 import type { GenerateContentResponse } from "@google/genai";
 import Background from "./Background";
+import AuthGate from "./AuthGate";
 
 const App: React.FC = () => {
-  /* ---------------- estados ---------------- */
+  /* ---------------- hooks, refs e serviços (TUDO DECLARADO PRIMEIRO) ---------------- */
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [userInput, setUserInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [unlocked, setUnlocked] = useState(false); // O estado que controla o portão
 
-  /* ---------------- serviços ---------------- */
-  const geminiServiceApiKey = process.env.API_KEY || "";
+  const geminiServiceApiKey = process.env.API_KEY || ""; // Lembre-se de usar o prefixo VITE_ ou REACT_APP_
   const geminiService = useMemo(
     () => new GeminiService(geminiServiceApiKey),
     [geminiServiceApiKey]
   );
 
-  /* ---------------- refs ---------------- */
-  const containerRef = useRef<HTMLDivElement>(null);   // <- novo
+  const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  /* ---------------- scroll helper ---------------- */
   const scrollToBottom = useCallback(() => {
     const el = containerRef.current;
     if (el) el.scrollTop = el.scrollHeight;
   }, []);
 
-  /* mantém rolagem após cada render de mensagem */
   useEffect(() => {
     scrollToBottom();
   }, [messages, isLoading, scrollToBottom]);
 
-  /* ---------------- init ---------------- */
   useEffect(() => {
+    if (!unlocked) return; // Não faz nada se a tela ainda estiver bloqueada
+
     if (!geminiService.isInitialized()) {
       const msg = "Chave da API não configurada. Por favor, defina API_KEY.";
       setError(msg);
@@ -51,15 +50,15 @@ const App: React.FC = () => {
       return;
     }
     inputRef.current?.focus();
-  }, [geminiService]);
+  }, [geminiService, unlocked]); // Adicionado 'unlocked' como dependência
 
-  /* ---------------- envio de mensagem ---------------- */
   const handleSendMessage = async (messageText?: string) => {
+    // ... (toda a sua lógica de handleSendMessage permanece exatamente a mesma)
     const textToSend = (messageText || userInput).trim();
     if (!textToSend || isLoading) return;
 
     const newUserMsg: ChatMessage = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       text: textToSend,
       sender: Sender.USER,
       timestamp: new Date(),
@@ -68,12 +67,11 @@ const App: React.FC = () => {
     setUserInput("");
     setIsLoading(true);
     setError(null);
-    setTimeout(scrollToBottom, 0); // garante scroll após render
+    setTimeout(scrollToBottom, 0);
 
     try {
       const aiResp: GenerateContentResponse = await geminiService.sendMessage(newUserMsg.text);
       const aiText = aiResp.text || "Desculpe, não consegui processar uma resposta.";
-
       let sources: WebSource[] | undefined;
       const gm = aiResp.candidates?.[0]?.groundingMetadata;
       if (gm?.groundingChunks?.length) {
@@ -85,22 +83,21 @@ const App: React.FC = () => {
           .filter((s) => s.uri);
         if (!sources.length) sources = undefined;
       }
-
       const aiMsg: ChatMessage = {
-        id: (Date.now() + 1).toString(),
+        id: crypto.randomUUID(),
         text: aiText,
         sender: Sender.AI,
         timestamp: new Date(),
         sources,
       };
       setMessages((prev) => [...prev, aiMsg]);
-      setTimeout(scrollToBottom, 0); // rola depois do AI
+      setTimeout(scrollToBottom, 0);
     } catch (e) {
       const errText = e instanceof Error ? e.message : "Ocorreu um erro desconhecido.";
       setError(errText);
       setMessages((prev) => [
         ...prev,
-        { id: (Date.now() + 1).toString(), text: errText, sender: Sender.SYSTEM, timestamp: new Date() },
+        { id: crypto.randomUUID(), text: errText, sender: Sender.SYSTEM, timestamp: new Date() },
       ]);
     } finally {
       setIsLoading(false);
@@ -108,7 +105,6 @@ const App: React.FC = () => {
     }
   };
 
-  /* ---------------- handlers auxiliares ---------------- */
   const handleSuggestionClick = (p: string) => !isLoading && handleSendMessage(p);
   const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -127,7 +123,19 @@ const App: React.FC = () => {
   const isApiKeyMissing = !geminiServiceApiKey;
   const showSuggestions = !messages.length && !isLoading && !error && !isApiKeyMissing;
 
-  /* ---------------- JSX ---------------- */
+
+  // ==================================================================
+  // AQUI É O LUGAR CORRETO PARA O PORTÃO DE AUTENTICAÇÃO
+  // Depois que toda a lógica e hooks foram declarados.
+  // ==================================================================
+  if (!unlocked) {
+    return <AuthGate onUnlock={() => setUnlocked(true)} />;
+  }
+
+  // ==================================================================
+  // Se o código chegou aqui, significa que "unlocked" é true.
+  // Então, renderizamos a interface principal do chat.
+  // ==================================================================
   return (
     <>
       <Background />
@@ -144,14 +152,13 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* Área do chat */}
+        {/* O resto do seu JSX do chat permanece exatamente o mesmo */}
         <div className="flex-grow flex flex-col relative overflow-hidden bg-transparent">
           <main
             ref={containerRef}
             className="flex-grow overflow-y-auto flex flex-col pt-4 pb-4 w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8"
           >
             {messages.map((m) => <MessageBubble key={m.id} message={m} />)}
-
             {isLoading && messages.at(-1)?.sender === Sender.USER && (
               <MessageBubble
                 key="typing"
@@ -163,8 +170,7 @@ const App: React.FC = () => {
           {showSuggestions && (
             <SuggestionPrompts prompts={SUGGESTION_PROMPTS} onSuggestionClick={handleSuggestionClick} disabled={isLoading} />
           )}
-
-          {/* Barra de input */}
+          
           <div className="flex-shrink-0 z-10 w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-3 sm:pb-4">
             {isApiKeyMissing && (
               <div className="mb-2 p-2 text-xs text-center text-red-700 bg-red-100 border border-red-300 rounded-md">
@@ -176,7 +182,6 @@ const App: React.FC = () => {
                 {error}
               </div>
             )}
-
             <div className="flex items-end bg-white/35 backdrop-blur-md p-2.5 shadow-sm rounded-lg">
               <textarea
                 ref={inputRef}
