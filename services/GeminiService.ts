@@ -28,7 +28,7 @@ export class GeminiService {
     }
     try {
       this.chat = this.ai.chats.create({
-        model: 'gemini-1.5-flash',
+        model: 'gemini-2.5-flash',
         config: {
             systemInstruction: SYSTEM_PROMPT,
             // tools: [{googleSearch: {}}], // Google Search tool disabled as per request
