@@ -179,8 +179,8 @@ const App: React.FC = () => {
             <GingaLogoNew className="w-20 h-20" />
             <div className="text-center text-xl">
               <span className="font-normal text-gray-700">Bem-vindo à </span>
-              <span className="font-bold text-gray-800">GINGA.AI</span><br></br>
-              <span className="font-normal text-gray-700">UMDOIS Ailos</span>
+              <span className="font-bold text-gray-800">GINGAÍ</span><br></br>
+              <span className="font-normal text-gray-700">Orfeu Cafés Especiais</span>
             </div>
           </div>
         </div>

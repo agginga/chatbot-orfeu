@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import GingaLogoNew from "./icons/GingaLogoNew";
 
 // Seus dados de login
-const USER = "meli";
-const PASS = "melimodatemginga";
+const USER = "orfeu";
+const PASS = "orfeutemginga";
 
 const AuthGate: React.FC<{ onUnlock: () => void }> = ({ onUnlock }) => {
   const [user, setUser] = useState("");
