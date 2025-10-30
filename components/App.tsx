@@ -209,10 +209,10 @@ const App: React.FC = () => {
 
         {/* Corpo do chat */}
         <div className="flex-grow flex flex-col relative overflow-hidden bg-transparent">
-          <main
-            ref={containerRef}
-            className="flex-grow overflow-y-auto flex flex-col pt-4 pb-4 w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 gap-2"
-          >
+<main
+  ref={containerRef}
+  className="flex-grow overflow-y-auto flex flex-col pt-4 pb-4 w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 gap-2"
+>
             {messages.map((m) => (
               <motion.div
                 key={m.id}

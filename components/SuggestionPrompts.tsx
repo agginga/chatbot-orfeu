@@ -11,10 +11,10 @@ const SuggestionPrompts: React.FC<SuggestionPromptsProps> = ({ prompts, onSugges
 
   return (
     <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 bg-transparent pt-2 pb-3 sm:pb-4 z-10 flex-shrink-0 animate-fadeIn">
-      <p className="text-sm font-medium text-[#1D1D1D] mb-2">
+      <p className="text-sm font-medium text-[#1D1D1D] mb-2 text-center sm:text-left">
         ✨ Sugestões:
       </p>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
         {prompts.map((prompt, index) => (
           <button
             key={index}
@@ -22,7 +22,7 @@ const SuggestionPrompts: React.FC<SuggestionPromptsProps> = ({ prompts, onSugges
             disabled={disabled}
             className="
               bg-[#FFFFF8]/35 hover:bg-[#FFFFF8]/75 text-[#1D1D1D] border border-gray-300 rounded-full
-              px-4 py-1.5 text-xs sm:text-sm text-left whitespace-normal break-words
+              px-4 py-1.5 text-xs sm:text-sm text-center whitespace-normal break-words
               transition-colors duration-150 ease-in-out
               focus:outline-none focus:ring-2 focus:ring-orange-300
               disabled:opacity-50 disabled:cursor-not-allowed
