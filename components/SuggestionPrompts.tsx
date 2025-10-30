@@ -7,14 +7,16 @@ interface SuggestionPromptsProps {
 }
 
 const SuggestionPrompts: React.FC<SuggestionPromptsProps> = ({ prompts, onSuggestionClick, disabled }) => {
-  if (!prompts || prompts.length === 0) return null;
+  if (!prompts || prompts.length === 0) {
+    return null;
+  }
 
   return (
     <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 bg-transparent pt-2 pb-3 sm:pb-4 z-10 flex-shrink-0 animate-fadeIn">
-      <p className="text-sm font-medium text-[#1D1D1D] mb-2 text-center sm:text-left">
+      <p className="text-sm font-medium text-[#1D1D1D] mb-2">
         ✨ Sugestões:
       </p>
-      <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
+      <div className="flex flex-wrap gap-2 justify-center items-center h-auto sm:justify-start sm:items-start">
         {prompts.map((prompt, index) => (
           <button
             key={index}
