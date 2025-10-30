@@ -201,7 +201,7 @@ const App: React.FC = () => {
             <GingaLogoNew className="w-20 h-20" />
             <div className="text-center text-xl">
               <span className="font-normal text-gray-700">
-                <b>Olá, Orfeu!</b> Como posso te ajudar hoje?
+                <b>Olá, Orfeu!</b><br></br> Como posso te ajudar hoje?
               </span>
             </div>
           </div>
