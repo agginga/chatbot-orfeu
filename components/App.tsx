@@ -201,7 +201,8 @@ const App: React.FC = () => {
             <GingaLogoNew className="w-20 h-20" />
             <div className="text-center text-xl">
               <span className="font-normal text-gray-700">
-                <b>Olá, Orfeu!</b><br></br> Como posso te ajudar hoje?
+                <b>Olá, Orfeu!</b>
+                <br /> Como posso te ajudar hoje?
               </span>
             </div>
           </div>
@@ -209,10 +210,10 @@ const App: React.FC = () => {
 
         {/* Corpo do chat */}
         <div className="flex-grow flex flex-col relative overflow-hidden bg-transparent">
-<main
-  ref={containerRef}
-  className="flex-grow overflow-y-auto flex flex-col pt-4 pb-4 w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 gap-2"
->
+          <main
+            ref={containerRef}
+            className="flex-grow overflow-y-auto flex flex-col pt-4 pb-3 w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 gap-2"
+          >
             {messages.map((m) => (
               <motion.div
                 key={m.id}
@@ -257,12 +258,11 @@ const App: React.FC = () => {
               )}
             </AnimatePresence>
 
-            {/* âncora para scroll automático */}
             <div ref={bottomRef} />
           </main>
 
           {/* Input */}
-          <div className="flex-shrink-0 z-10 w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-3 sm:pb-4">
+          <div className="flex-shrink-0 z-10 w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-2 sm:pb-3 mt-[-4px]">
             {isApiKeyMissing && (
               <div className="mb-2 p-2 text-xs text-center text-red-700 bg-red-100 border border-red-300 rounded-md">
                 Atenção: API_KEY não configurada.
