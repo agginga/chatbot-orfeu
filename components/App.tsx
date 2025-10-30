@@ -1,4 +1,3 @@
-import { Analytics } from "@vercel/analytics/next";
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { ChatMessage, Sender, WebSource } from "../types";
@@ -11,7 +10,18 @@ import { SUGGESTION_PROMPTS } from "../constants";
 import type { GenerateContentResponse } from "@google/genai";
 import Background from "./Background";
 import AuthGate from "./AuthGate";
+import { Analytics } from '@vercel/analytics/react';
 
+function App() {
+  return (
+    <>
+      {/* ...todo o conteúdo do seu app */}
+      <Analytics />
+    </>
+  );
+}
+
+export default App;
 /* ---------------------- VERIFICA SESSÃO ---------------------- */
 const checkActiveSession = (): boolean => {
   const sessionData = localStorage.getItem("userSession");
