@@ -26,7 +26,7 @@ const SuggestionPrompts: React.FC<SuggestionPromptsProps> = ({ prompts, onSugges
               bg-[#FFFFF8]/35 hover:bg-[#FFFFF8]/75
               text-[#1D1D1D] border border-gray-300 rounded-full
               px-4 py-1.5 text-xs sm:text-sm
-              text-left whitespace-normal break-words
+              text-left!important whitespace-normal break-words
               min-w-0 max-w-full
               transition-colors duration-150 ease-in-out
               focus:outline-none focus:ring-2 focus:ring-orange-300
