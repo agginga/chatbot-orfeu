@@ -13,10 +13,10 @@ const SuggestionPrompts: React.FC<SuggestionPromptsProps> = ({ prompts, onSugges
 
   return (
     <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 bg-transparent pt-2 pb-3 sm:pb-4 z-10 flex-shrink-0 animate-fadeIn">
-      <p className="text-sm font-medium text-[#1D1D1D] mb-2">
+      <p className="text-sm font-medium text-[#1D1D1D] mb-2 text-center sm:text-left">
         ✨ Sugestões:
       </p>
-      <div className="flex flex-wrap gap-2 justify-center items-center h-auto sm:justify-start sm:items-start">
+      <div className="flex flex-wrap gap-2 justify-center sm:justify-start text-center h-auto">
         {prompts.map((prompt, index) => (
           <button
             key={index}
@@ -28,6 +28,7 @@ const SuggestionPrompts: React.FC<SuggestionPromptsProps> = ({ prompts, onSugges
               transition-colors duration-150 ease-in-out
               focus:outline-none focus:ring-2 focus:ring-orange-300
               disabled:opacity-50 disabled:cursor-not-allowed
+              leading-snug shadow-sm
             "
             aria-label={`Sugestão: ${prompt}`}
           >
