@@ -10,18 +10,7 @@ import { SUGGESTION_PROMPTS } from "../constants";
 import type { GenerateContentResponse } from "@google/genai";
 import Background from "./Background";
 import AuthGate from "./AuthGate";
-import { Analytics } from '@vercel/analytics/react';
-
-function App() {
-  return (
-    <>
-      {/* ...todo o conteúdo do seu app */}
-      <Analytics />
-    </>
-  );
-}
-
-export default App;
+import { Analytics } from "@vercel/analytics/react"; // 🟠 Import do Analytics
 
 /* ---------------------- VERIFICA SESSÃO ---------------------- */
 const checkActiveSession = (): boolean => {
@@ -61,7 +50,7 @@ const App: React.FC = () => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  // Scroll automático para o fim da conversa (parte inferior)
+  // Scroll automático para o fim da conversa
   const scrollToBottom = useCallback(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, []);
@@ -200,6 +189,7 @@ const App: React.FC = () => {
   return (
     <>
       <Background />
+
       <div className="w-full h-screen flex flex-col overflow-hidden bg-transparent text-gray-800 sm:rounded-[32px]">
         {/* Header */}
         <div className="flex-shrink-0 bg-transparent z-10">
@@ -309,6 +299,9 @@ const App: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* 🟢 Analytics da Vercel */}
+      <Analytics />
     </>
   );
 };
