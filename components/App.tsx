@@ -273,7 +273,7 @@ const App: React.FC = () => {
                 {error}
               </div>
             )}
-            <div className="flex items-end bg-white/35 backdrop-blur-md p-2.5 shadow-sm rounded-lg">
+            <div className="flex items-end bg-white/35 backdrop-blur-md p-2.5 pb-4 shadow-sm rounded-lg">
               <textarea
                 ref={inputRef}
                 value={userInput}
