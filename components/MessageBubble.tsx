@@ -9,7 +9,7 @@ interface MessageBubbleProps {
   onQuestionClick?: (q: string) => void;
 }
 
-// Componente de Perguntas Sugeridas
+// Componente de Perguntas Sugeridas (corrigido para mobile)
 const SuggestedQuestions: React.FC<{
   questions: string[];
   show: boolean;
@@ -25,26 +25,41 @@ const SuggestedQuestions: React.FC<{
         const timer = setTimeout(() => {
           setVisibleQuestions((prev) => [...prev, q]);
         }, i * 150);
-        return () => clearTimeout(timer);
+        // não retornamos clear aqui porque estamos dentro de forEach;
+        // o cleanup abaixo limpa tudo quando show/questions mudam
       });
     }
+    return () => setVisibleQuestions([]);
   }, [show, questions]);
 
   return (
-    <div className="flex flex-wrap justify-start gap-2 mt-2 text-left">
+    <div className="flex flex-wrap justify-start items-start gap-2 mt-2 text-left">
       <AnimatePresence>
         {visibleQuestions.map((q) => (
-          <motion.div
+          <motion.button
+            // use button for better accessibility/interaction
             key={q}
-            initial={{ opacity: 0, y: 10 }}
+            type="button"
+            initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="bg-[#F9A01E]/10 px-3 py-1 rounded-full text-sm cursor-pointer select-none hover:bg-[#F9A01E]/20 break-words"
+            exit={{ opacity: 0, y: 6 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
             onClick={() => onClick?.(q)}
+            className="
+              self-start
+              items-start
+              justify-start
+              text-left
+              min-w-0
+              max-w-full
+              whitespace-normal
+              break-words
+              bg-[#F9A01E]/10 px-3 py-1 rounded-full text-sm
+              cursor-pointer select-none hover:bg-[#F9A01E]/20
+            "
           >
             {q}
-          </motion.div>
+          </motion.button>
         ))}
       </AnimatePresence>
     </div>
@@ -56,7 +71,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onQuestionClick 
   const isAI = message.sender === Sender.AI;
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  // Exibe sugestões com delay natural
+  // Delay natural para exibir sugestões
   useEffect(() => {
     setShowSuggestions(false);
 
@@ -130,11 +145,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onQuestionClick 
 
       {/* Perguntas sugeridas */}
       {isAI && message.suggestedQuestions && (
-        <SuggestedQuestions
-          questions={message.suggestedQuestions}
-          show={showSuggestions}
-          onClick={onQuestionClick}
-        />
+        <SuggestedQuestions questions={message.suggestedQuestions} show={showSuggestions} onClick={onQuestionClick} />
       )}
     </>
   );
