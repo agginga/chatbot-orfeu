@@ -8,7 +8,7 @@ export class GeminiService {
 
   // Modelos primário e secundário (fallback)
   private primaryModel = "gemini-2.5-flash";
-  private fallbackModel = "gemini-1.5-pro-latest";
+  private fallbackModel = "gemini-2.5-flash-lite";
 
   constructor(apiKey: string) {
     if (!apiKey) {
