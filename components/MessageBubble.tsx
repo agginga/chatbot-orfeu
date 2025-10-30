@@ -9,7 +9,7 @@ interface MessageBubbleProps {
   onQuestionClick?: (q: string) => void;
 }
 
-// 💡 Componente de Perguntas Sugeridas
+// Componente de Perguntas Sugeridas
 const SuggestedQuestions: React.FC<{
   questions: string[];
   show: boolean;
@@ -18,6 +18,8 @@ const SuggestedQuestions: React.FC<{
   const [visibleQuestions, setVisibleQuestions] = useState<string[]>([]);
 
   useEffect(() => {
+    setVisibleQuestions([]); // reset ao mudar show
+
     if (show) {
       questions.forEach((q, i) => {
         const timer = setTimeout(() => {
@@ -25,13 +27,11 @@ const SuggestedQuestions: React.FC<{
         }, i * 150);
         return () => clearTimeout(timer);
       });
-    } else {
-      setVisibleQuestions([]);
     }
   }, [show, questions]);
 
   return (
-    <div className="flex flex-wrap gap-2 mt-2">
+    <div className="flex flex-wrap justify-start gap-2 mt-2 text-left">
       <AnimatePresence>
         {visibleQuestions.map((q) => (
           <motion.div
@@ -40,7 +40,7 @@ const SuggestedQuestions: React.FC<{
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="bg-[#F9A01E]/10 px-3 py-1 rounded-full text-sm cursor-pointer select-none hover:bg-[#F9A01E]/20"
+            className="bg-[#F9A01E]/10 px-3 py-1 rounded-full text-sm cursor-pointer select-none hover:bg-[#F9A01E]/20 break-words"
             onClick={() => onClick?.(q)}
           >
             {q}
@@ -51,22 +51,22 @@ const SuggestedQuestions: React.FC<{
   );
 };
 
-// 💬 Componente principal de mensagens
+// Componente principal de mensagens
 const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onQuestionClick }) => {
   const isAI = message.sender === Sender.AI;
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  // Delay natural para exibir sugestões
+  // Exibe sugestões com delay natural
   useEffect(() => {
     setShowSuggestions(false);
 
     if (!message.isTyping && message.suggestedQuestions?.length) {
-      const timer = setTimeout(() => setShowSuggestions(true), 200);
+      const timer = setTimeout(() => setShowSuggestions(true), 200); // delay curto
       return () => clearTimeout(timer);
     }
   }, [message.id, message.isTyping, message.suggestedQuestions]);
 
-  // Loader animado (3 bolinhas)
+  // Loader especial (3 bolinhas animadas)
   if (message.isTyping) {
     return (
       <div className="my-2 flex justify-start animate-fadeIn">
@@ -84,7 +84,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onQuestionClick 
     );
   }
 
-  // 💬 Mensagem normal (usuário ou IA)
+  // Mensagem normal (usuário ou IA)
   return (
     <>
       <motion.div
@@ -95,7 +95,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onQuestionClick 
         transition={{ duration: 0.25, ease: "easeOut" }}
       >
         <div
-          className={`max-w-[90%] rounded-2xl px-4 py-3 shadow-sm ${
+          className={`max-w-[90%] rounded-2xl px-4 py-3 shadow-sm break-words ${
             isAI
               ? "bg-[#F9A01E]/10 text-gray-900 text-[13.5px] leading-snug"
               : "bg-[#F9A01E] text-gray-900 text-[13.5px] leading-snug"
@@ -104,30 +104,22 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onQuestionClick 
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={{
-              p: ({ ...props }) => (
-                <p style={{ margin: "0.45em 0", lineHeight: "1.3em" }} {...props} />
+              p: ({ node, ...props }) => <p style={{ margin: "0.45em 0", lineHeight: "1.2em" }} {...props} />,
+              li: ({ node, ...props }) => <li style={{ marginBottom: "0.45em", lineHeight: "1.2em" }} {...props} />,
+              ul: ({ node, ...props }) => (
+                <ul style={{ marginTop: "0.5em", marginBottom: "0.5em", paddingLeft: "1.5em" }} {...props} />
               ),
-              li: ({ ...props }) => (
-                <li style={{ marginBottom: "0.45em", lineHeight: "1.3em" }} {...props} />
+              ol: ({ node, ...props }) => (
+                <ol style={{ marginTop: "0.5em", marginBottom: "0.5em", paddingLeft: "1.5em" }} {...props} />
               ),
-              ul: ({ ...props }) => (
-                <ul style={{ margin: "0.5em 0", paddingLeft: "1.3em" }} {...props} />
-              ),
-              ol: ({ ...props }) => (
-                <ol style={{ margin: "0.5em 0", paddingLeft: "1.3em" }} {...props} />
-              ),
-              strong: ({ ...props }) => (
-                <strong style={{ color: "#151515", fontWeight: 600 }} {...props} />
-              ),
-              a: ({ href, children }) => (
+              strong: ({ node, ...props }) => <strong style={{ color: "#151515ff" }} {...props} />,
+              a: ({ node, ...props }) => (
                 <a
-                  href={href}
+                  {...props}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#F9A01E] underline hover:text-[#d88715]"
-                >
-                  {children}
-                </a>
+                  className="text-[#F9A01E] underline hover:text-[#FFB938]"
+                />
               ),
             }}
           >
@@ -136,7 +128,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onQuestionClick 
         </div>
       </motion.div>
 
-      {/* 💡 Perguntas sugeridas (animadas) */}
+      {/* Perguntas sugeridas */}
       {isAI && message.suggestedQuestions && (
         <SuggestedQuestions
           questions={message.suggestedQuestions}
