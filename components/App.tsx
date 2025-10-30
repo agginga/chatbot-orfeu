@@ -10,6 +10,18 @@ import { SUGGESTION_PROMPTS } from "../constants";
 import type { GenerateContentResponse } from "@google/genai";
 import Background from "./Background";
 import AuthGate from "./AuthGate";
+import { Analytics } from '@vercel/analytics/react';
+
+function App() {
+  return (
+    <>
+      {/* ...todo o conteúdo do seu app */}
+      <Analytics />
+    </>
+  );
+}
+
+export default App;
 
 /* ---------------------- VERIFICA SESSÃO ---------------------- */
 const checkActiveSession = (): boolean => {
