@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { ChatMessage, Sender, WebSource } from "../types";
